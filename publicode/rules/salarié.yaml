@@ -2503,16 +2503,34 @@ contrat salarié . participation effort de construction:
 
 contrat salarié . prévoyance:
   formule:
-    somme:
-      - employeur
-      - salarié
+    barème:
+      assiette: cotisations . assiette
+      tranches:
+        - taux: taux tranche A
+          plafond: plafond sécurité sociale temps plein
+        - taux: taux tranche B
+          plafond: 4 * plafond sécurité sociale temps plein
+        - taux: taux tranche C
+          plafond: 8 * plafond sécurité sociale temps plein
+
+contrat salarié . prévoyance . taux tranche A:
+  formule: 0%
+
+contrat salarié . prévoyance . taux tranche B:
+  formule: 0%
+
+contrat salarié . prévoyance . taux tranche C:
+  formule: 0%
+
+contrat salarié . prévoyance . participation employeur:
+  formule: 50%
 
 contrat salarié . prévoyance . employeur:
-  titré: Prévoyance employeur
-  formule: 0 €/mois
+  titre: Prévoyance employeur
+  formule: prévoyance * participation employeur
 
 contrat salarié . prévoyance . salarié:
-  formule: 0 €/mois
+  formule: prévoyance - prévoyance . employeur
 
 contrat salarié . prévoyance . part déductible:
   formule:
