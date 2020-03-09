@@ -1,6 +1,7 @@
 /* eslint-env node */
 const HTMLPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const GoogleFontsPlugin = require('google-fonts-plugin')
 const { EnvironmentPlugin } = require('webpack')
 const path = require('path')
 
@@ -63,7 +64,23 @@ module.exports.default = {
 				from: './source/sites/mon-entreprise.fr/favicon',
 				to: 'favicon'
 			}
-		])
+		]),
+
+		new GoogleFontsPlugin({
+			fonts: [
+				{
+					family: 'Roboto',
+					variants: ['300', '400', '400i', '500', '600'],
+					subsets: ['latin-ext']
+				},
+				{
+					family: 'Montserrat',
+					variants: ['400', '600'],
+					subsets: ['latin-ext']
+				}
+			],
+			formats: ['woff', 'woff2']
+		})
 	]
 }
 

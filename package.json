@@ -155,6 +155,7 @@
 		"eslint-plugin-react-hooks": "^2.0.1",
 		"express": "^4.16.3",
 		"file-loader": "^1.1.11",
+		"google-fonts-plugin": "^5.0.2",
 		"html-loader": "^0.5.5",
 		"html-webpack-plugin": "^3.2.0",
 		"http-server": "^0.11.1",
