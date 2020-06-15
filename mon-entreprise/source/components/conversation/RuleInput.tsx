@@ -16,7 +16,7 @@ type Value = string | number | object | boolean | null
 export type RuleInputProps = {
 	rules: ParsedRules
 	dottedName: DottedName
-	onChange: (value: Value | null) => void
+	onChange: (value: Value) => void
 	useSwitch?: boolean
 	isTarget?: boolean
 	autoFocus?: boolean

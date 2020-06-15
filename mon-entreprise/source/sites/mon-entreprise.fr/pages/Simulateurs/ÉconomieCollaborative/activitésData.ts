@@ -2,19 +2,32 @@ import { map, pipe, unnest } from 'ramda'
 import activitésEn from './activités.en.yaml'
 import activités from './activités.yaml'
 
+export type Activity = {
+	titre: string
+	explication: string
+	icônes: string
+	plateformes: Array<string>
+	'seuil pro': number
+	'seuil déclaration': number
+	'seuil régime général': number
+	activités: Array<Activity>
+	'exonérée sauf si': Array<{ titre: string; explication: string }>
+}
+
 export { activités }
-export const flatActivités = pipe(
-	map((a: any) => (a.activités ? [a, ...a.activités] : [a])),
+export const flatActivités: Array<Activity> = pipe(
+	map((a: Activity) => (a.activités ? [a, ...a.activités] : [a])),
 	unnest
 )(activités)
 
 export const getActivité = (a: string) =>
-	flatActivités.find(item => item.titre === a)
+	flatActivités.find(item => item.titre === a) as Activity
 
-export const getTranslatedActivité = (title: string, language: string) => ({
-	...getActivité(title),
-	...(language !== 'fr' && activitésEn[title])
-})
+export const getTranslatedActivité = (title: string, language: string) =>
+	({
+		...getActivité(title),
+		...(language !== 'fr' && activitésEn[title])
+	} as Activity)
 
 export const getMinimumDéclaration = (a: string) => {
 	const activité = getActivité(a)

@@ -1,12 +1,12 @@
+import Animate from 'Components/ui/animate'
 import { Markdown } from 'Components/utils/markdown'
 import { ScrollToTop } from 'Components/utils/Scroll'
 import { SitePathsContext } from 'Components/utils/SitePathsContext'
-import Value from 'Components/EngineValue'
+import { formatValue } from 'publicodes'
 import React, { useContext } from 'react'
 import emoji from 'react-easy-emoji'
 import { Trans, useTranslation } from 'react-i18next'
-import { Redirect } from 'react-router-dom'
-import Animate from 'Components/ui/animate'
+import { Redirect, useParams } from 'react-router-dom'
 import { selectSeuilRevenus } from './actions'
 import { getTranslatedActivité } from './activitésData'
 import { ActivitéSelection } from './ActivitésSelection'
@@ -14,13 +14,9 @@ import ExceptionsExonération from './ExceptionsExonération'
 import NextButton from './NextButton'
 import { estExonéréeSelector } from './selectors'
 import { StoreContext } from './StoreContext'
-import { formatValue } from 'publicodes'
 
-export default function Activité({
-	match: {
-		params: { title }
-	}
-}) {
+export default function Activité() {
+	const { title } = useParams<{ title: string }>()
 	const { language } = useTranslation().i18n
 	const sitePaths = useContext(SitePathsContext)
 	const { state, dispatch } = useContext(StoreContext)

@@ -48,6 +48,7 @@ export type ParsedRule<Name extends string = string> = Rule & {
 	API?: string
 	icons?: string
 	formule?: any
+	'par défaut'?: any
 	evaluate?: Function
 	explanation?: any
 	isDisabledBy?: Array<any>

@@ -1,4 +1,4 @@
-import { DottedName } from '../rules/index'
+import { DottedName, Situation } from '../rules/index'
 import { createSelector } from 'reselect'
 import { RootState, SimulationConfig } from 'Reducers/rootReducer'
 
@@ -18,10 +18,10 @@ export const objectifsSelector = createSelector([configSelector], config => {
 
 const emptySituation = {}
 
-export const situationSelector = (state: RootState) =>
+export const situationSelector = (state: RootState): Situation =>
 	state.simulation?.situation ?? emptySituation
 
-export const configSituationSelector = (state: RootState) =>
+export const configSituationSelector = (state: RootState): Situation =>
 	configSelector(state).situation ?? emptySituation
 
 export const firstStepCompletedSelector = createSelector(

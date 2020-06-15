@@ -3,11 +3,16 @@ import { Trans } from 'react-i18next'
 import { CheckItem, Checklist } from 'Components/ui/Checklist'
 import { changeCritèreExonération } from './actions'
 import { StoreContext } from './StoreContext'
+import { Activity } from './activitésData'
+
+type ExceptionsExonérationProps = {
+	exceptionsExonération: Activity['exonérée sauf si']
+}
 
 export default function ExceptionsExonération({
 	exceptionsExonération,
 	activité
-}) {
+}: ExceptionsExonérationProps) {
 	const { state, dispatch } = useContext(StoreContext)
 	if (!exceptionsExonération) return null
 	const defaultChecked = state[activité].critèresExonération.map(
@@ -30,7 +35,7 @@ export default function ExceptionsExonération({
 				{exceptionsExonération.map(({ titre, explication }, index) => (
 					<CheckItem
 						key={index}
-						name={index}
+						name={index.toString()}
 						title={titre}
 						explanations={explication}
 					/>

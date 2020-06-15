@@ -3,8 +3,19 @@ import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { debounce as debounceFn } from '../utils'
 import './PercentageField.css'
+import { RuleInputProps } from './conversation/RuleInput'
 
-export default function PercentageField({ onChange, value, debounce = 0 }) {
+type PercentageFieldProps = {
+	onChange: RuleInputProps['onChange']
+	value: number
+	debounce?: number
+}
+
+export default function PercentageField({
+	onChange,
+	value,
+	debounce = 0
+}: PercentageFieldProps) {
 	const [localValue, setLocalValue] = useState(value)
 	const debouncedOnChange = useCallback(
 		debounce ? debounceFn(debounce, onChange) : onChange,
@@ -18,7 +29,7 @@ export default function PercentageField({ onChange, value, debounce = 0 }) {
 				className="range"
 				onChange={e => {
 					const value = e.target.value
-					setLocalValue(value)
+					setLocalValue(Number(value))
 					debouncedOnChange(value)
 				}}
 				type="range"
