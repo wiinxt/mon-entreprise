@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import Engine from '..'
 import i18n from '../i18n'
-import { decodeRuleName, encodeRuleName } from '../ruleUtils'
+import { decodeRuleName, encodeRuleName } from '../utils'
 import { BasepathContext, EngineContext } from './contexts'
 import RulePage from './rule/Rule'
 

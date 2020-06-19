@@ -1,7 +1,7 @@
 import { toPairs } from 'ramda'
 import React from 'react'
-import { capitalise0 } from '../../utils'
 import styled from 'styled-components'
+import { capitalise0 } from '../../utils'
 
 const references = {
 	'service-public.fr': require('url-loader!./références/marianne.png').default,

@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { disambiguateRuleReference, ruleParents } from '../source/ruleUtils'
+import { resolveReference, ruleParents } from '../source/utils'
 
 describe('ruleParents', function() {
 	it('should procude an array of the parents of a rule', function() {
@@ -9,7 +9,7 @@ describe('ruleParents', function() {
 		expect(parents).to.eql(['CDD . taxe . montant annuel', 'CDD . taxe', 'CDD'])
 	})
 })
-describe('disambiguateRuleReference', function() {
+describe('resolveReference', function() {
 	it("should disambiguate a reference to another rule in a rule, given the latter's namespace", function() {
 		const rawRules = {
 			CDD: { question: 'CDD ?' },
@@ -23,18 +23,14 @@ describe('disambiguateRuleReference', function() {
 			}
 		}
 		expect(
-			disambiguateRuleReference(
+			resolveReference(
 				rawRules,
 				'CDD . taxe . montant annuel',
 				'exonération annuelle'
 			)
 		).to.eql('CDD . taxe . montant annuel . exonération annuelle')
 		expect(
-			disambiguateRuleReference(
-				rawRules,
-				'CDD . taxe . montant annuel',
-				'condition'
-			)
+			resolveReference(rawRules, 'CDD . taxe . montant annuel', 'condition')
 		).to.eql('CDD . condition')
 	})
 })

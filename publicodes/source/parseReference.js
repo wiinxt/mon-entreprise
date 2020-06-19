@@ -5,7 +5,7 @@ import { evaluateApplicability } from './evaluateRule'
 import { evaluateNode, mergeMissing } from './evaluation'
 import { convertNodeToUnit } from './nodeUnits'
 import parseRule from './parseRule'
-import { disambiguateRuleReference } from './ruleUtils'
+import { resolveReference } from './utils'
 import { areUnitConvertible, serializeUnit } from './units'
 
 const getApplicableReplacements = (
@@ -218,11 +218,7 @@ export let parseReference = (
 	parsedRules,
 	filter
 ) => partialReference => {
-	let dottedName = disambiguateRuleReference(
-		rules,
-		rule.dottedName,
-		partialReference
-	)
+	let dottedName = resolveReference(rules, rule.dottedName, partialReference)
 
 	let inInversionFormula = rule.formule?.['inversion numérique']
 

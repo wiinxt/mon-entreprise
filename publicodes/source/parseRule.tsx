@@ -7,14 +7,15 @@ import { warning } from './error'
 import evaluate from './evaluateRule'
 import { evaluateNode, makeJsx, mergeAllMissing } from './evaluation'
 import { parse } from './parse'
-import {
-	disambiguateRuleReference,
-	findParentDependencies,
-	nameLeaf
-} from './ruleUtils'
 import { ParsedRule, Rule, Rules } from './types'
 import { parseUnit, simplifyUnit } from './units'
-import { capitalise0, coerceArray } from './utils'
+import {
+	capitalise0,
+	coerceArray,
+	findParentDependencies,
+	nameLeaf,
+	resolveReference
+} from './utils'
 
 export default function<Names extends string>(
 	rules: Rules<Names>,
@@ -115,7 +116,7 @@ export default function<Names extends string>(
 		'applicable si': evolveCond('applicable si', rule, rules, parsedRules),
 		'rend non applicable': nonApplicableRules =>
 			coerceArray(nonApplicableRules).map(referenceName => {
-				return disambiguateRuleReference(rules, dottedName, referenceName)
+				return resolveReference(rules, dottedName, referenceName)
 			}),
 		remplace: evolveReplacement(rules, rule, parsedRules),
 		defaultValue: value =>
@@ -287,16 +288,12 @@ const evolveReplacement = (rules, rule, parsedRules) => replacements =>
 				names =>
 					names &&
 					names.map(dottedName =>
-						disambiguateRuleReference(rules, rule.dottedName, dottedName)
+						resolveReference(rules, rule.dottedName, dottedName)
 					)
 			)
 
 		return {
-			referenceName: disambiguateRuleReference(
-				rules,
-				rule.dottedName,
-				referenceName
-			),
+			referenceName: resolveReference(rules, rule.dottedName, referenceName),
 			replacementNode,
 			whiteListedNames,
 			blackListedNames

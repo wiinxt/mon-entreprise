@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import emoji from 'react-easy-emoji'
 import { Link } from 'react-router-dom'
 import Engine from '..'
-import { encodeRuleName } from '../ruleUtils'
+import { encodeRuleName } from '../utils'
 import { BasepathContext, EngineContext } from './contexts'
 
 type RuleLinkProps<Name extends string> = Omit<

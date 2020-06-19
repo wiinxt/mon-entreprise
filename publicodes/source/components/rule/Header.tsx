@@ -1,5 +1,5 @@
 import React from 'react'
-import { ruleParents } from '../../ruleUtils'
+import { ruleParents } from '../../utils'
 import { RuleLinkWithContext } from '../RuleLink'
 import styled from 'styled-components'
 
