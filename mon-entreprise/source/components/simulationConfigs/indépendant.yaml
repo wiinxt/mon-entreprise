@@ -28,7 +28,9 @@ questions:
     - entreprise . ZFU
     - dirigeant . indépendant . cotisations et contributions . exonérations . âge
     - dirigeant . indépendant . cotisations et contributions . exonérations . invalidité
-
+    - situation personnelle . domiciliation fiscale à l'étranger
+    - situation personnelle . RSA
 unité par défaut: €/an
 situation:
   dirigeant: "'indépendant'"
+  entreprise . catégorie d'activité: "'libérale'"
