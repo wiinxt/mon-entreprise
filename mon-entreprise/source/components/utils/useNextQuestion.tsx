@@ -107,15 +107,15 @@ export function getNextQuestions(
 					.replace(/'/g, '')
 					.trim() as DottedName)
 			: lastStep
-
-	return sortBy(
+	const sorted = sortBy(
 		question =>
 			notPriority.includes(question)
-				? notPriority.indexOf(question)
-				: similarity(question, lastStepWithAnswer),
+				? notPriority.indexOf(question) + nextSteps.length
+				: similarity(question, lastStepWithAnswer) / 100,
 
 		nextSteps
 	)
+	return sorted
 }
 
 export const useNextQuestions = function(): Array<DottedName> {
