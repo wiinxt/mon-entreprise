@@ -146,12 +146,28 @@ aide déclaration revenu indépendant 2020 . réduction covid:
   par défaut: non
 
 aide déclaration revenu indépendant 2020 . réduction covid . imputation sur les cotisations obligatoires:
-  titre: imputation réduction covid
   unité: €/an
   formule:
     produit:
       assiette: montant
       facteur: dirigeant . indépendant . cotisations et contributions . cotisations / montant . plafond
+    arrondi: oui
+
+aide déclaration revenu indépendant 2020 . réduction covid . imputation sur la CSG et CRDS non déductible:
+  unité: €/an
+  formule:
+    produit:
+      assiette: montant
+      facteur: dirigeant . indépendant . cotisations et contributions . CSG et CRDS . non déductible / montant . plafond
+    arrondi: oui
+
+aide déclaration revenu indépendant 2020 . réduction covid . imputation sur la CSG et CRDS déductible:
+  unité: €/an
+  formule:
+    produit:
+      assiette: montant
+      facteur: dirigeant . indépendant . cotisations et contributions . CSG et CRDS . déductible / montant . plafond
+    arrondi: oui
 
 aide déclaration revenu indépendant 2020 . réduction covid . montant:
   titre: Réduction Covid
@@ -167,6 +183,7 @@ aide déclaration revenu indépendant 2020 . réduction covid . montant:
         - dirigeant . indépendant . cotisations et contributions . CSG et CRDS
         - dirigeant . indépendant . conjoint collaborateur . cotisations
         - (- dirigeant . indépendant . cotisations et contributions . exonérations)
+    résoudre la référence circulaire: oui
 
 
 aide déclaration revenu indépendant 2020 . réduction covid . montant . printemps 2020:
@@ -379,7 +396,10 @@ aide déclaration revenu indépendant 2020 . CSG déductible:
   titre: CSG déductible
   résumé: '[B]'
   description: "Montant de la CSG déductible à l'impôt sur le revenu"
-  formule: dirigeant . indépendant . cotisations et contributions . CSG et CRDS . déductible
+  formule: 
+    somme:
+      - dirigeant . indépendant . cotisations et contributions . CSG et CRDS . déductible
+      - réduction covid . imputation sur la CSG et CRDS déductible
   
 aide déclaration revenu indépendant 2020 . CFP:
   résumé: '[D]'
