@@ -454,8 +454,8 @@ function Results() {
 					impots.gouv.fr.
 				</p>
 				<p>
-					Vous pouvez reporter les montant suivant dans votre déclaration,
-					calculé à partir des informations saisies.
+					Vous pouvez reporter les montants suivants dans votre déclaration,
+					calculés à partir des informations saisies.
 				</p>
 				{([
 					'aide déclaration revenu indépendant 2020 . cotisations obligatoires',
