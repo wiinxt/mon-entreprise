@@ -10,7 +10,7 @@ export const Indicators = styled.div`
 type IndicatorProps = {
 	main?: React.ReactNode
 	subTitle?: React.ReactNode
-	footnote?: string
+	footnote?: React.ReactNode
 	width?: string
 }
 export function Indicator({ main, subTitle, footnote, width }: IndicatorProps) {

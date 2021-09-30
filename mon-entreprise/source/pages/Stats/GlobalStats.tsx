@@ -1,5 +1,6 @@
 import Emoji from 'Components/utils/Emoji'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { SatisfactionStyle } from './SatisfactionChart'
 import { SatisfactionLevel, StatsStruct } from './types'
 import { Indicator, Indicators } from './utils'
@@ -138,7 +139,6 @@ export default function GlobalStats({ stats }: { stats: StatsStruct }) {
 
 	return (
 		<>
-			{' '}
 			<Indicators>
 				<BigIndicator
 					main={totalVisits}
@@ -161,6 +161,19 @@ export default function GlobalStats({ stats }: { stats: StatsStruct }) {
 					main={last30dCommence}
 					subTitle="Simulations lancées"
 					footnote="sur les 30 derniers jours"
+				/>
+				<BigIndicator
+					main={stats.nbAnswersLast30days}
+					subTitle="Réponses aux utilisateurs"
+					footnote={
+						<>
+							sur les 30 derniers jours
+							<br />
+							<Link to="#demandes-utilisateurs">
+								Voir les demandes populaires
+							</Link>
+						</>
+					}
 				/>
 			</Indicators>
 			<div
