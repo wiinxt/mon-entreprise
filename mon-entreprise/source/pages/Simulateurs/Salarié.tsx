@@ -4,10 +4,15 @@ import SalaryExplanation from 'Components/simulationExplanation/SalaryExplanatio
 import { SitePathsContext } from 'Components/utils/SitePathsContext'
 import { useContext } from 'react'
 import { Trans } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { RootState } from 'Reducers/rootReducer'
 
 export default function SalariéSimulation() {
 	const sitePaths = useContext(SitePathsContext)
+	const knownCompany = !!useSelector(
+		(state: RootState) => state.inFranceApp.existingCompany
+	)
 
 	return (
 		<>
@@ -35,7 +40,7 @@ export default function SalariéSimulation() {
 
 			{/** L'équipe Code Du Travail Numérique ne souhaite pas référencer
 			 * le simulateur dirigeant de SASU sur son site. */}
-			{!document.referrer?.includes('code.travail.gouv.fr') && (
+			{!knownCompany && !document.referrer?.includes('code.travail.gouv.fr') && (
 				<Banner icon={'👨‍✈️'}>
 					<Trans>
 						Vous êtes dirigeant d'une SAS(U) ?{' '}
