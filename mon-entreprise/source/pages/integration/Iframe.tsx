@@ -6,6 +6,7 @@ import {
 import Emoji from 'Components/utils/Emoji'
 import { ScrollToTop } from 'Components/utils/Scroll'
 import urssafLogo from 'Images/Urssaf.svg'
+import { I18nextProvider, useTranslation } from 'react-i18next'
 import React, {
 	Suspense,
 	useContext,
@@ -24,6 +25,7 @@ import apecLogo from './images/apec.png'
 import cciLogo from './images/cci.png'
 import minTraLogo from './images/min-tra.jpg'
 import poleEmploiLogo from './images/pole-emploi.png'
+import i18n from '../../locales/i18n'
 
 const LazyColorPicker = React.lazy(() => import('../Dev/ColorPicker'))
 
@@ -31,6 +33,7 @@ function IntegrationCustomizer() {
 	const { search } = useLocation()
 	const simulators = useSimulatorsData()
 	const history = useHistory()
+	const { t } = useTranslation()
 	const integrableModuleNames = useMemo(
 		() =>
 			Object.values(simulators)
@@ -45,10 +48,25 @@ function IntegrationCustomizer() {
 			? defaultModuleFromUrl
 			: integrableModuleNames[0]
 	)
+	const [currentLanguage, setCurrentLanguage] = React.useState('fr')
+
+	const localI18n = i18n.cloneInstance()
+
+	;(async function loadEnglishRessource() {
+		localI18n.addResourceBundle(
+			'en',
+			'translation',
+			(await import('../../locales/rules-en.yaml')).default
+		)
+	})()
+
+	useEffect(() => {
+		localI18n.changeLanguage(currentLanguage)
+	}, [localI18n, currentLanguage])
 
 	useEffect(() => {
 		history.replace({ search: `?module=${currentModule}` })
-	}, [currentModule])
+	}, [history, currentModule])
 
 	const { color: defaultColor } = useContext(ThemeColorsContext)
 	const [color, setColor] = useState(defaultColor)
@@ -118,6 +136,18 @@ function IntegrationCustomizer() {
 						<Suspense fallback={<div>Chargement...</div>}>
 							<LazyColorPicker color={color} onChange={setColor} />
 						</Suspense>
+
+						<h3>
+							<Trans i18nKey="pages.développeurs.langue">Quel langue ?</Trans>{' '}
+							<Emoji emoji="🇬🇧" />
+						</h3>
+						<select
+							onChange={(event) => setCurrentLanguage(event.target.value)}
+							value={currentLanguage}
+						>
+							<option value="fr">{t('français')}</option>
+							<option value="en">{t('anglais')}</option>
+						</select>
 						<h3>
 							<Trans i18nKey="pages.développeurs.code.titre">
 								Code d'intégration
@@ -129,7 +159,11 @@ function IntegrationCustomizer() {
 								Voici le code à copier-coller sur votre site&nbsp;:
 							</Trans>
 						</p>
-						<IntegrationCode color={color} module={currentModule} />
+						<IntegrationCode
+							color={color}
+							language={currentLanguage}
+							module={currentModule}
+						/>
 					</div>
 					<div
 						className="ui__ right-side"
@@ -161,9 +195,11 @@ function IntegrationCustomizer() {
 								key={currentModule}
 								initialEntries={[`/iframes/${currentModule}`]}
 							>
-								<ThemeColorsProvider color={color}>
-									<Iframes />
-								</ThemeColorsProvider>
+								<I18nextProvider i18n={localI18n}>
+									<ThemeColorsProvider color={color} key={currentLanguage}>
+										<Iframes />
+									</ThemeColorsProvider>
+								</I18nextProvider>
 							</MemoryRouter>
 						</div>
 					</div>
@@ -189,10 +225,6 @@ export default function Integration() {
 						Vous pouvez choisir le simulateur à intégrer et{' '}
 						<strong>personnaliser la couleur principale du module</strong> pour
 						le fondre dans le thème visuel de votre page.
-					</p>
-					<p>
-						L'attribut <i>data-lang="en"</i> vous permet quant à lui de choisir
-						l'anglais comme langue du simulateur.
 					</p>
 				</div>
 				<IntegrationCustomizer />
@@ -283,7 +315,7 @@ function EnSavoirPlusCSP() {
 						</Trans>
 					</p>
 					<code>
-						script-src 'self' 'unsafe-inline' https://mon-entreprise.fr;
+						script-src 'self' https://mon-entreprise.fr;
 						<br />
 						img-src 'self' https://mon-entreprise.fr;
 					</code>
@@ -296,11 +328,13 @@ function EnSavoirPlusCSP() {
 type IntegrationCodeProps = {
 	module?: string
 	color?: string
+	language?: string
 }
 
 function IntegrationCode({
 	module = 'simulateur-embauche',
 	color,
+	language,
 }: IntegrationCodeProps) {
 	const codeRef = useRef<HTMLDivElement>(null)
 	const [secondClick, setSecondClick] = useState(false)
@@ -325,6 +359,7 @@ function IntegrationCode({
 				font-size: 80%;
 				padding: 1em;
 				background: #f8f8f8;
+				border: 2px solid var(--lighterColor);
 				margin: auto;
 				margin-bottom: 1em;
 				overflow: auto;
@@ -366,6 +401,15 @@ function IntegrationCode({
 					<br />
 					<em>data-couleur</em>="
 					<span id="scriptColor">{color}</span>"
+				</>
+			) : (
+				''
+			)}
+			{language !== 'fr' ? (
+				<>
+					<br />
+					<em>data-lang</em>="
+					<span id="scriptColor">{language}</span>"
 				</>
 			) : (
 				''

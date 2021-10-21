@@ -115,6 +115,7 @@ aide-déclaration-indépendant:
     titre: <0>Entreprise et activité</0>
   results:
     title: Vos déclarations fiscales
+anglais: anglais
 après:
   ape:
     description: Le code APE correspond au <1>secteur d'activité</1> de votre
@@ -472,6 +473,7 @@ formeJuridique:
     responsabilité limitée", avec à un régime forfaitaire pour le calcul des
     impôts et le paiement des cotisations de sécurité sociale.
   titre: Choix du statut juridique
+français: français
 gérant minoritaire:
   description: "<0>Certaines règles spéciales s'appliquent selon le nombre
     d'actions détenues.</0><1><0><0>Gérant majoritaire</0> : Vous êtes
@@ -576,7 +578,6 @@ listeformejuridique:
   page:
     titre: Liste des statuts juridiques pour la création de votre entreprise
 mensuel: mensuel
-
 nextSteps:
   integration-iframe: <0><0></0> Intégrer le module web</0><1>Ajouter ce
     simulateur sur votre site internet en un clic via un script clé en main.</1>
@@ -725,12 +726,11 @@ pages:
         manière transparente en ajoutant une simple ligne de code à votre page
         Web.</1><2>Vous pouvez choisir le simulateur à intégrer et
         <2>personnaliser la couleur principale du module</2> pour le fondre dans
-        le thème visuel de votre page.</2><3>L'attribut <1>data-lang="en"</1>
-        vous permet quant à lui de choisir l'anglais comme langue du
-        simulateur.</3></0><1></1><2>À noter que si votre site utilise une
-        politique de sécurité de contenu via l'en-tête de réponse HTTP
-        <1>Content-Security-Policy</1>, une erreur bénigne peut apparaître dans
-        la console. <3></3></2>
+        le thème visuel de votre page.</2></0><1></1><2>À noter que si votre
+        site utilise une politique de sécurité de contenu via l'en-tête de
+        réponse HTTP <1>Content-Security-Policy</1>, une erreur bénigne peut
+        apparaître dans la console. <3></3></2>
+    langue: Quel langue ?
     module: Quel module ?
   gérer:
     aide-déclaration-indépendant:
