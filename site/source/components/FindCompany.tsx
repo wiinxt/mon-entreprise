@@ -1,31 +1,24 @@
+import { useSearchFieldState } from '@react-stately/searchfield'
 import { useSetEntreprise } from 'Actions/companyStatusActions'
 import CompanyDetails from 'Components/CompanyDetails'
-import { TextField } from 'DesignSystem/field'
+import { SearchField } from 'DesignSystem/field'
+import { Spacing } from 'DesignSystem/layout'
 import { Body } from 'DesignSystem/typography/paragraphs'
-import { useCallback, useMemo, useState } from 'react'
+import useSearchCompany from 'Hooks/useSearchCompany'
 import { Trans, useTranslation } from 'react-i18next'
-import { Etablissement, searchDenominationOrSiren } from '../api/sirene'
-import { debounce } from '../utils'
 
 export default function Search() {
-	const [searchResults, setSearchResults] =
-		useState<Array<Etablissement> | null>()
-	const [isLoading, setLoadingState] = useState(false)
 	const { t } = useTranslation()
-	const handleSearch = useCallback(
-		function (value) {
-			searchDenominationOrSiren(value).then((results) => {
-				setLoadingState(false)
-				setSearchResults(results)
-			})
-		},
-		[setSearchResults, setLoadingState]
-	)
-	const debouncedHandleSearch = useMemo(
-		() => debounce(300, handleSearch),
-		[handleSearch]
-	)
 	const setEntreprise = useSetEntreprise()
+	const searchFieldProps = {
+		label: t('CompanySearchField.label', "Nom de l'entreprise, SIREN ou SIRET"),
+		placeholder: t(
+			'CompanySearchField.placeholder',
+			'Café de la gare ou 40123778000127'
+		),
+	}
+	const state = useSearchFieldState(searchFieldProps)
+	const [searchPending, results] = useSearchCompany(state.value)
 
 	return (
 		<>
@@ -36,26 +29,24 @@ export default function Search() {
 					site.
 				</Trans>
 			</Body>
-			<TextField
-				label={t("Nom de l'entreprise ou SIREN")}
-				type="search"
-				onChange={(value) => {
-					if (value.length < 2) {
-						setSearchResults(undefined)
-						return
-					}
-					setLoadingState(true)
-					debouncedHandleSearch(value)
-				}}
+
+			<SearchField
+				data-testid="popover-company-search-input"
+				state={state}
+				isSearchStalled={searchPending}
+				{...searchFieldProps}
 			/>
-			{!isLoading && searchResults === null && (
+
+			<Spacing sm />
+
+			{!searchPending && state.value && results.length === 0 && (
 				<Body>
 					<Trans>Aucun résultat</Trans>
 				</Body>
 			)}
 
-			{searchResults &&
-				searchResults.map(({ siren, denomination }) => (
+			{results &&
+				results.map(({ siren, denomination }) => (
 					<button
 						onClick={() => setEntreprise(siren)}
 						key={siren}
@@ -64,10 +55,6 @@ export default function Search() {
 							width: 100%;
 							padding: 0 0.4rem;
 							border-radius: 0.3rem;
-							:hover,
-							:focus {
-								background-color: var(--lighterColor);
-							}
 						`}
 					>
 						<CompanyDetails siren={siren} denomination={denomination} />
