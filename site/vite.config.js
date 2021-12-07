@@ -1,10 +1,9 @@
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 import yaml from '@rollup/plugin-yaml'
-import toml from 'rollup-plugin-toml'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import toml from 'rollup-plugin-toml'
 import { defineConfig } from 'vite'
-import envCompatible from 'vite-plugin-env-compatible'
 import { injectHtml } from 'vite-plugin-html'
 
 /**
@@ -32,7 +31,6 @@ export default defineConfig({
 		yaml(),
 		toml,
 		viteCommonjs(),
-		envCompatible(),
 		injectHtml(),
 	],
 	build: {},

@@ -12,8 +12,9 @@
 		"modele-social",
 		"site"
 	],
+	"type": "module",
 	"scripts": {
-		"lint:eslintrc": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+		"lint:eslintrc": "eslint --print-config .eslintrc.cjs | eslint-config-prettier-check",
 		"lint:eslint": "export NODE_OPTIONS='--max-old-space-size=4096'; eslint . --ext .js,.jsx,.ts,.tsx",
 		"lint:eslint:fix": "yarn lint:eslint --fix",
 		"lint:prettier": "yarn run prettier --check \"**/*.{js,jsx,ts,tsx,yaml,yml}\"",

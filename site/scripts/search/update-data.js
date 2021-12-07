@@ -1,10 +1,12 @@
-require('dotenv').config()
+import algoliasearch from 'algoliasearch'
+import dotenv from 'dotenv'
+import rawRules from 'modele-social'
+import { parsePublicodes } from 'publicodes'
+import getSimulationData from '../../source/pages/Simulateurs/metadata-src.js'
 
-const algoliasearch = require('algoliasearch')
-const rawRules = require('modele-social')
-const rules = require('publicodes').parsePublicodes(rawRules)
+dotenv.config()
 
-const getSimulationData = require('../../source/pages/Simulateurs/metadata-src')
+const rules = parsePublicodes(rawRules)
 
 const {
 	ALGOLIA_APP_ID,

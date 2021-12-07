@@ -11654,10 +11654,24 @@ publicodes-react@^1.0.0-beta.20:
     styled-components "^5.1.0"
     yaml "^1.9.2"
 
-publicodes@^1.0.0-beta.17, publicodes@^1.0.0-beta.20:
+publicodes@^1.0.0-beta.17:
   version "1.0.0-beta.20"
   resolved "https://registry.npmjs.org/publicodes/-/publicodes-1.0.0-beta.20.tgz"
   integrity sha512-VVDtfMts7V6G1v8dhp3RdjkuN5C5jOmCqSVtSfSvedoJLx4/pof9Ao6wkhxYlIejYvO8E6uY4KljdiBPpzUDaw==
+  dependencies:
+    "@babel/core" "^7.14.6"
+    "@babel/preset-env" "^7.14.5"
+    "@types/webpack-env" "^1.16.0"
+    moo "^0.5.1"
+    nearley "^2.19.2"
+    node-loader "^2.0.0"
+    webpack "^5.39.1"
+    yaml "^1.9.2"
+
+publicodes@^1.0.0-beta.22:
+  version "1.0.0-beta.22"
+  resolved "https://registry.yarnpkg.com/publicodes/-/publicodes-1.0.0-beta.22.tgz#098e61ef2e4b8d52df8ca8acc01cd79a31bb529c"
+  integrity sha512-DBpIYVXeULZs7ndsiS1FjRA+z4U95izCVEN5ScWjXMGbbsxiSRf7Rr0PZ3iwaA5qcMJOiWMzBls29TaTWMN+5w==
   dependencies:
     "@babel/core" "^7.14.6"
     "@babel/preset-env" "^7.14.5"
@@ -14496,11 +14510,6 @@ vinyl@^2.0.0, vinyl@~2.2.1:
     cloneable-readable "^1.0.0"
     remove-trailing-separator "^1.0.1"
     replace-ext "^1.0.0"
-
-vite-plugin-env-compatible@^1.0.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/vite-plugin-env-compatible/-/vite-plugin-env-compatible-1.1.1.tgz#2e11b059a5f3e8fc609d6a4bba84ca497081ee20"
-  integrity sha512-4lqhBWhOzP+SaCPoCVdmpM5cXzjKQV5jgFauxea488oOeElXo/kw6bXkMIooZhrh9q7gclTl8en6N9NmnqUwRQ==
 
 vite-plugin-html@2.0.7:
   version "2.0.7"

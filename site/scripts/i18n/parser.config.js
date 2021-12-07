@@ -1,6 +1,6 @@
 // i18next-parser.config.js
 
-module.exports = {
+export default {
 	contextSeparator: '_',
 	// Key separator used in your translation keys
 
