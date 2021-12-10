@@ -1,5 +1,9 @@
 import { Grid } from '@mui/material'
 import { useSearchFieldState } from '@react-stately/searchfield'
+import {
+	FabriqueSocialEntreprise,
+	searchDenominationOrSiren,
+} from 'API/fabrique-social'
 import { Card } from 'DesignSystem/card'
 import { SearchField } from 'DesignSystem/field'
 import { Body, Intro } from 'DesignSystem/typography/paragraphs'
@@ -7,7 +11,6 @@ import useSearchCompany from 'Hooks/useSearchCompany'
 import { ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { Etablissement, searchDenominationOrSiren } from '../api/sirene'
 import CompanyDetails from './CompanyDetails'
 import { FromTop } from './ui/animate'
 
@@ -15,7 +18,7 @@ export function CompanySearchField(props: {
 	label?: ReactNode
 	onValue?: () => void
 	onClear?: () => void
-	onSubmit?: (établissement: Etablissement) => void
+	onSubmit?: (établissement: FabriqueSocialEntreprise) => void
 }) {
 	const { t } = useTranslation()
 
@@ -27,6 +30,8 @@ export function CompanySearchField(props: {
 			'Le numéro Siret est un numéro de 14 chiffres unique pour chaque entreprise. Ex : 40123778000127'
 		),
 		onSubmit(value: string) {
+			// This should probably click on the first item of the list of values...
+			// Or use the current set of results...
 			searchDenominationOrSiren(value).then((result) => {
 				if (!result || result.length !== 1) {
 					return
@@ -74,8 +79,8 @@ function Results({
 	results,
 	onSubmit,
 }: {
-	results: Array<Etablissement>
-	onSubmit: (établissement: Etablissement) => void
+	results: Array<FabriqueSocialEntreprise>
+	onSubmit: (établissement: FabriqueSocialEntreprise) => void
 }) {
 	return !results.length ? (
 		<FromTop>
@@ -93,7 +98,7 @@ function Results({
 				{results.map((etablissement) => (
 					<Grid key={etablissement.siren} item xs={12} lg={6}>
 						<Card onPress={() => onSubmit(etablissement)} compact>
-							<CompanyDetails {...etablissement} />
+							<CompanyDetails entreprise={etablissement} />
 						</Card>
 					</Grid>
 				))}

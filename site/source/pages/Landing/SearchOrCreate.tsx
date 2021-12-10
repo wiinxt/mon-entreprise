@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import { useSetEntreprise } from 'Actions/companyStatusActions'
-import { Etablissement } from 'api/sirene'
+import { FabriqueSocialEntreprise } from 'API/fabrique-social'
 import { CompanySearchField } from 'Components/CompanySearchField'
 import Emoji from 'Components/utils/Emoji'
 import { SitePathsContext } from 'Components/utils/SitePathsContext'
@@ -65,8 +65,8 @@ function useHandleCompanySubmit() {
 	const sitePaths = useContext(SitePathsContext)
 	const setEntreprise = useSetEntreprise()
 	const handleCompanySubmit = useCallback(
-		(établissement: Etablissement) => {
-			setEntreprise(établissement.siren)
+		(établissement: FabriqueSocialEntreprise) => {
+			setEntreprise(établissement)
 			history.push(sitePaths.gérer.index)
 		},
 		[history, setEntreprise, sitePaths]

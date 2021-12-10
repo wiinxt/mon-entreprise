@@ -1,5 +1,6 @@
 import { useSearchFieldState } from '@react-stately/searchfield'
 import { useSetEntreprise } from 'Actions/companyStatusActions'
+import { FabriqueSocialEntreprise } from 'API/fabrique-social'
 import CompanyDetails from 'Components/CompanyDetails'
 import { SearchField } from 'DesignSystem/field'
 import { Spacing } from 'DesignSystem/layout'
@@ -46,10 +47,10 @@ export default function Search() {
 			)}
 
 			{results &&
-				results.map(({ siren, denomination }) => (
+				results.map((entreprise: FabriqueSocialEntreprise) => (
 					<button
-						onClick={() => setEntreprise(siren)}
-						key={siren}
+						onClick={() => setEntreprise(entreprise)}
+						key={entreprise.siren}
 						css={`
 							text-align: left;
 							width: 100%;
@@ -57,7 +58,7 @@ export default function Search() {
 							border-radius: 0.3rem;
 						`}
 					>
-						<CompanyDetails siren={siren} denomination={denomination} />
+						<CompanyDetails entreprise={entreprise} />
 					</button>
 				))}
 		</>

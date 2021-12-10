@@ -289,7 +289,7 @@ export const CompanySection = ({ company }: CompanySectionProps) => {
 			)}
 			{company ? (
 				<>
-					<CompanyDetails siren={company.siren} />
+					<CompanyDetails entreprise={company} />
 
 					{company.statutJuridique !== 'NON_IMPLÉMENTÉ' && (
 						<SmallBody>
